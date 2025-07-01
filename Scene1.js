@@ -42,6 +42,12 @@ class Scene1 extends Phaser.Scene{
 
         this.gameState.asteroids = this.physics.add.group()
 
+        //adds wasd keys
+        this.gameState.wKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.gameState.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.gameState.sKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.gameState.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+
         //shows score during playtime
         this.gameState.scoreText = this.add.text(10,10,'Score: ', {fontSize: '20px', fill: '#FFFFFF'})
         this.gameState.scoreText.setOrigin(0,0);
@@ -136,26 +142,26 @@ class Scene1 extends Phaser.Scene{
         this.gameState.scoreText.setText(`Score: ${this.gameState.score}`);
 
         //Controls the X axis movement
-        if(this.gameState.cursors.left.isDown && this.gameState.cursors.right.isDown){
+        if((this.gameState.aKey.isDown || this.gameState.cursors.left.isDown) && (this.gameState.dKey.isDown || this.gameState.cursors.right.isDown)){
             this.gameState.player.setVelocityX(0);
         }
-        else if(this.gameState.cursors.left.isDown && this.gameState.dead == false){
+        else if((this.gameState.aKey.isDown || this.gameState.cursors.left.isDown) && this.gameState.dead == false){
             this.gameState.player.setVelocityX(-1 * this.gameState.playerSpeed);
         }
-        else if(this.gameState.cursors.right.isDown && this.gameState.dead == false){
+        else if((this.gameState.dKey.isDown || this.gameState.cursors.right.isDown) && this.gameState.dead == false){
             this.gameState.player.setVelocityX(this.gameState.playerSpeed);
         }
         else{
             this.gameState.player.setVelocityX(0);
         }
         //Controls the Y axis movement
-        if(this.gameState.cursors.up.isDown && this.gameState.cursors.down.isDown){
+        if((this.gameState.wKey.isDown || this.gameState.cursors.up.isDown) && (this.gameState.sKey.isDown || this.gameState.cursors.down.isDown)){
             this.gameState.player.setVelocityY(0);
         }
-        else if(this.gameState.cursors.up.isDown && this.gameState.dead == false){
+        else if((this.gameState.wKey.isDown || this.gameState.cursors.up.isDown) && this.gameState.dead == false){
             this.gameState.player.setVelocityY(-1 * this.gameState.playerSpeed);
         }
-        else if(this.gameState.cursors.down.isDown && this.gameState.dead == false){
+        else if((this.gameState.sKey.isDown || this.gameState.cursors.down.isDown) && this.gameState.dead == false){
             this.gameState.player.setVelocityY(this.gameState.playerSpeed);
         }
         else{
