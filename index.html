@@ -1,35 +1,43 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <script type="text/javascript">
-        window.SDK_OPTIONS = {
-            gameId: "zw7f2sx8rh3qy0xvduha9r5519273xlg",
-            onEvent: function (a) {
-                switch (a.name) {
-                    case "SDK_GAME_PAUSE":
-                    // pause game logic / mute audio
-                    break;
-                    case "SDK_GAME_START":
-                    // advertisement done, resume game logic and unmute audio
-                    break;
-                    case "SDK_READY":
-                    // when sdk is ready
-                    break;
-                }
-            }
-        };
-        (function (a, b, c) {
-        var d = a.getElementsByTagName(b)[0];
-        a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/sdk.js", d.parentNode.insertBefore(a, d))
-        })(document, "script", "gamemonetize-sdk"); 
-        </script>
+  <head>
+    <title>First Game</title>
 
-        <title>First Game</title>
-    </head>
-    <body>
-        <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
-        <script src="StartScene.js"></script>
-        <script src="Scene1.js"></script>
-        <script src="Scene2.js"></script>
-        <script src="./firstGame.js"></script>
-    </body>
+    <script type="text/javascript">
+      window.SDK_OPTIONS = {
+        gameId: "zw7f2sx8rh3qy0xvduha9r5519273xlg",
+        onEvent: function (event) {
+          switch (event.name) {
+            case "SDK_GAME_PAUSE":
+              // pause game logic / mute audio
+              break;
+            case "SDK_GAME_START":
+              // resume game logic / unmute audio
+              break;
+            case "SDK_READY":
+              // SDK ready
+              break;
+          }
+        }
+      };
+
+      (function (doc, tag, id) {
+        var firstScript = doc.getElementsByTagName(tag)[0];
+        if (!doc.getElementById(id)) {
+          var js = doc.createElement(tag);
+          js.id = id;
+          js.src = "https://api.gamemonetize.com/sdk.js";
+          firstScript.parentNode.insertBefore(js, firstScript);
+        }
+      })(document, "script", "gamemonetize-sdk");
+    </script>
+  </head>
+
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
+    <script src="StartScene.js"></script>
+    <script src="Scene1.js"></script>
+    <script src="Scene2.js"></script>
+    <script src="firstGame.js"></script>
+  </body>
 </html>
