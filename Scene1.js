@@ -42,7 +42,8 @@ class Scene1 extends Phaser.Scene{
 
         this.gameState.asteroids = this.physics.add.group()
 
-        this.gameState.scoreText = this.add.text(10,10,'Score: ', {fontSize: '20px', fill: '#000000'})
+        //shows score during playtime
+        this.gameState.scoreText = this.add.text(10,10,'Score: ', {fontSize: '20px', fill: '#FFFFFF'})
         this.gameState.scoreText.setOrigin(0,0);
 
         this.gameState.score = 0;
@@ -77,13 +78,14 @@ class Scene1 extends Phaser.Scene{
                 });
 
                 this.physics.add.collider(this.gameState.asteroids, this.gameState.player, () => {
-                    this.gameState.expo.play();// Plays the sound of explosion
-                    this.spawnTimer.remove(false); // remove timer completely on collision
-                    this.gameState.dead = true;
+                    if(this.gameState.dead == false){
+                        this.gameState.expo.play();// Plays the sound of explosion
+                        this.spawnTimer.remove(false); // remove timer completely on collision
+                        this.gameState.dead = true;
 
-                    this.gameState.fire1 = this.add.circle(this.gameState.player.x, this.gameState.player.y, 40, '0xFF0000');
-                    this.gameState.fire2 = this.add.circle(this.gameState.player.x, this.gameState.player.y, 20, '0xFFA500');
-
+                        this.gameState.fire1 = this.add.circle(this.gameState.player.x, this.gameState.player.y, 40, '0xFF0000');
+                        this.gameState.fire2 = this.add.circle(this.gameState.player.x, this.gameState.player.y, 20, '0xFFA500');
+                    }
                     //shows your final score
                     this.gameState.finalScore = this.add.text(config.width / 2, config.height / 3 - 100, `Final Score: ${this.gameState.score}`,
                         {fontSize: '30px', fill: '#FFFFFF'});
@@ -104,6 +106,7 @@ class Scene1 extends Phaser.Scene{
                         this.gameState.click.play();
                         this.cameras.main.fade(200,0,0,0,false,function(camera, progress){
                             if(progress > 0.9){
+                                this.gameState.loading.stop();
                                 this.gameState.dead = false;
                                 this.scene.stop('Scene1');
                                 this.scene.start('Scene1');

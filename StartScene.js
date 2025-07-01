@@ -67,6 +67,20 @@ class StartScene extends Phaser.Scene{
             });
             
         })
+
+        window.SDK_GAME_PAUSE = () => {
+            this.game.scene.getScenes(true).forEach(scene => {scene.scene.pause()})
+            this.sound.setMute(true);
+        }
+
+        window.SDK_GAME_PAUSE = () => {
+            this.game.scene.getScenes(false).forEach(scene => {scene.scene.resume()});
+            this.sound.setMute(false);
+        }
+
+        if (typeof sdk !== 'undefined' && sdk.showBanner !== 'undefined') {
+            sdk.showBanner();
+        }
     }
 
     update(){
