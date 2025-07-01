@@ -62,7 +62,7 @@ class Scene2 extends Phaser.Scene{
         this.gameState.thanksTital = this.add.text(config.width / 2, config.height / 3 + 200, 'Special Thanks', {fontSize: '30px', fill: '#FFFFFF'})
         this.gameState.thanksTital.setOrigin(0.5, 0.5);
 
-        this.gameState.thanksText = this.add.text(config.width / 2, config.height / 3 + 250, 'Thomas - for helping me figure out VS Code',
+        this.gameState.thanksText = this.add.text(config.width / 2, config.height / 3 + 250, 'Thomas - for helping me figure out VS-Code',
              {fontSize: '25px', fill: '#FFFFFF'})
         this.gameState.thanksText.setOrigin(0.5, 0.5);
     }
