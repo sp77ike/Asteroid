@@ -4,49 +4,61 @@
     <title>My Game</title>
 
     <script type="text/javascript">
-      window.SDK_OPTIONS = {
-        gameId: "zw7f2sx8rh3qy0xvduha9r5519273xlg",
-        onEvent: function (a) {
-          console.log("SDK event:", a.name);
+        window.SDK_OPTIONS = {
+            gameId: "zw7f2sx8rh3qy0xvduha9r5519273xlg",
+            onEvent: function (a) {
+                console.log("SDK event:", a.name);
 
-          switch (a.name) {
-            case "SDK_GAME_PAUSE":
-              console.log('SDK_GAME_PAUSE: pausing scenes and muting');
-              window.game.sound.setMute(true);
-              window.game.scene.pause('StartScene');
-              window.game.scene.pause('Scene1');
-              window.game.scene.pause('Scene2');
-              break;
+                switch (a.name) {
+                    case "SDK_GAME_PAUSE":
+                    if (window.game) {
+                        console.log("Muting audio and pausing scenes...");
+                        window.game.sound.setMute(true);
+                        ['StartScene', 'Scene1', 'Scene2'].forEach(scene => {
+                        if (window.game.scene.isActive(scene)) {
+                            window.game.scene.pause(scene);
+                            console.log(`Paused: ${scene}`);
+                        }
+                        });
+                    }
+                    break;
 
-            case "SDK_GAME_START":
-              console.log('SDK_GAME_START: resuming scenes and unmuting');
-              window.game.sound.setMute(false);
-              window.game.scene.resume('StartScene');
-              window.game.scene.resume('Scene1');
-              window.game.scene.resume('Scene2');
-              break;
+                    case "SDK_GAME_START":
+                    if (window.game) {
+                        console.log("Unmuting audio and resuming scenes...");
+                        window.game.sound.setMute(false);
+                        ['StartScene', 'Scene1', 'Scene2'].forEach(scene => {
+                        if (window.game.scene.isPaused(scene)) {
+                            window.game.scene.resume(scene);
+                            console.log(`Resumed: ${scene}`);
+                        }
+                        });
+                    }
+                    break;
 
-            case "SDK_READY":
-              console.log('SDK is ready!');
-              if (typeof sdk !== 'undefined' && typeof sdk.showBanner === 'function') {
-                sdk.showBanner();
-              }
-              break;
-          }
-        }
-      };
+                    case "SDK_READY":
+                    console.log("GameMonetize SDK Ready");
+                    if (typeof sdk !== 'undefined' && typeof sdk.showBanner === 'function') {
+                        sdk.showBanner();
+                        console.log("Requested initial banner ad");
+                    }
+                    break;
+                }
+            }
+        };
 
-      // Load SDK script
-      (function (a, b, c) {
-        var d = a.getElementsByTagName(b)[0];
-        if (!a.getElementById(c)) {
-          var s = a.createElement(b);
-          s.id = c;
-          s.src = "https://api.gamemonetize.com/sdk.js";
-          d.parentNode.insertBefore(s, d);
-        }
-      })(document, "script", "gamemonetize-sdk");
+        (function (d, s, id) {
+            var js = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                var e = d.createElement(s);
+                e.id = id;
+                e.src = "https://api.gamemonetize.com/sdk.js";
+                js.parentNode.insertBefore(e, js);
+            }
+        })(document, "script", "gamemonetize-sdk");
     </script>
+
+    
   </head>
 
   <body>
