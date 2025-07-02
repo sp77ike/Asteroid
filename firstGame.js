@@ -13,11 +13,13 @@ const config = {
      },
 
      scene: [
+          manager,
           StartScene,
           Scene1,
           Scene2,
-          manager
      ]
 }
 
 var game = new Phaser.Game(config);
+
+//game.scene.launch('manager');
