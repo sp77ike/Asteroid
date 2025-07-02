@@ -36,6 +36,7 @@ class Scene2 extends Phaser.Scene{
             this.cameras.main.fade(200,0,0,0,false,function(camera, progress){
                 if(progress > 0.9){
                     this.gameState.menu.stop();
+                    window.CrazyGames.SDK.banner.clearAllBanners();
                     this.scene.stop('Scene2');
                     this.scene.start('StartScene');
                 }
@@ -70,14 +71,13 @@ class Scene2 extends Phaser.Scene{
              {fontSize: '25px', fill: '#FFFFFF'})
         this.gameState.testText.setOrigin(0.5, 0.5);
 
-        window.SDK_GAME_PAUSE = () => {
-            this.scene.pause();
-            this.sound.setMute(true);
-        }
-
-        window.SDK_GAME_PAUSE = () => {
-            this.scene.play();
-            this.sound.setMute(false);
+        // Request CrazyGames medium banner
+        if (window.CrazyGames && window.CrazyGames.SDK && window.CrazyGames.SDK.banner) {
+            try {
+                window.CrazyGames.SDK.banner.requestResponsiveBanner("banner-container");
+            } catch (e) {
+                console.log("Banner request error:", e);
+            }
         }
     }
     update(){

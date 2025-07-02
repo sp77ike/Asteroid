@@ -61,12 +61,23 @@ class StartScene extends Phaser.Scene{
             this.cameras.main.fade(200,0,0,0,false,function(camera, progress){
                 if(progress > 0.9){
                     this.gameState.menu.stop();
+                    window.CrazyGames.SDK.banner.clearAllBanners();
                     this.scene.stop('StartScene');
                     this.scene.start('Scene1');
                 }
             });
             
         })
+
+        // Request CrazyGames medium banner
+        if (window.CrazyGames && window.CrazyGames.SDK && window.CrazyGames.SDK.banner) {
+            try {
+                window.CrazyGames.SDK.banner.requestResponsiveBanner("banner-container");
+            } catch (e) {
+                console.log("Banner request error:", e);
+            }
+        }
+
     }
     update(){
         
