@@ -70,8 +70,14 @@ class Scene2 extends Phaser.Scene{
              {fontSize: '25px', fill: '#FFFFFF'})
         this.gameState.testText.setOrigin(0.5, 0.5);
 
-        if (typeof sdk !== 'undefined' && sdk.showBanner !== 'undefined') {
-            sdk.showBanner();
+        window.SDK_GAME_PAUSE = () => {
+            this.scene.pause();
+            this.sound.setMute(true);
+        }
+
+        window.SDK_GAME_PAUSE = () => {
+            this.scene.play();
+            this.sound.setMute(false);
         }
     }
     update(){
