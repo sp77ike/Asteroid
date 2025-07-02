@@ -4,9 +4,11 @@ class manager extends Phaser.Scene{
     }
 
     create(){
+        console.log('manager scene started')
         const scenesToControl = ['StartScene', 'Scene1', 'Scene2']; // your scene keys
 
         window.SDK_GAME_PAUSE = () => {
+            console.log('atempting pause');
             scenesToControl.forEach(sceneKey => {
                 this.scene.pause(sceneKey);
             });
@@ -15,6 +17,7 @@ class manager extends Phaser.Scene{
         };
 
         window.SDK_GAME_START = () => {
+            console.log('attempting play')
             scenesToControl.forEach(sceneKey => {
                 this.scene.resume(sceneKey);
             });
@@ -27,8 +30,10 @@ class manager extends Phaser.Scene{
             onEvent: (event) => {
                 console.log("SDK event:", event.name);
                 if (event.name === "SDK_READY") {
+                    console.log('sdk event is ready')
                 // Show banner ad as soon as SDK is ready
                 if (typeof sdk !== 'undefined' && typeof sdk.showBanner === 'function') {
+                    console.log('attempting to show banner');
                     sdk.showBanner();
                     console.log("Banner ad shown");
                 }

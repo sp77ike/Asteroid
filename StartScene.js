@@ -15,7 +15,8 @@ class StartScene extends Phaser.Scene{
     gameState = {};
 
     create(){
-        this.scene.start('manager');
+        console.log('atempting manager start');
+        this.scene.launch('manager');
 
         //Sounds for game
         this.gameState.click = this.sound.add('click');

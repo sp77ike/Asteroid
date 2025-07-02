@@ -16,6 +16,7 @@ const config = {
           StartScene,
           Scene1,
           Scene2,
+          manager
      ]
 }
 
