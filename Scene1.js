@@ -19,6 +19,8 @@ class Scene1 extends Phaser.Scene{
     }
 
     create(){
+        this.gameState.dead = false;
+
         //Scene sounds
         this.gameState.click = this.sound.add('click');
         this.gameState.expo = this.sound.add('explosion');

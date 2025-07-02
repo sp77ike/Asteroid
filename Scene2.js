@@ -36,7 +36,6 @@ class Scene2 extends Phaser.Scene{
             this.cameras.main.fade(200,0,0,0,false,function(camera, progress){
                 if(progress > 0.9){
                     this.gameState.menu.stop();
-                    window.CrazyGames.SDK.banner.clearAllBanners();
                     this.scene.stop('Scene2');
                     this.scene.start('StartScene');
                 }
@@ -70,15 +69,6 @@ class Scene2 extends Phaser.Scene{
         this.gameState.testText = this.add.text(config.width / 2, config.height / 3 + 300, 'YoungMossTheSauceGod and Thomas - for testing',
              {fontSize: '25px', fill: '#FFFFFF'})
         this.gameState.testText.setOrigin(0.5, 0.5);
-
-        // Request CrazyGames medium banner
-        if (window.CrazyGames && window.CrazyGames.SDK && window.CrazyGames.SDK.banner) {
-            try {
-                window.CrazyGames.SDK.banner.requestResponsiveBanner("banner-container");
-            } catch (e) {
-                console.log("Banner request error:", e);
-            }
-        }
     }
     update(){
        
