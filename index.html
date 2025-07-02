@@ -1,76 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>First Game</title>
+  <head>
+    <title>My Game</title>
 
-    <script>
-    // Fallback global handlers (defined early so GameMonetize finds them)
-    window.SDK_GAME_PAUSE = function () {
-        if (window.game) {
-        const scenes = window.game.scene.getScenes(true);
-        scenes.forEach(s => window.game.scene.pause(s.scene.key));
-        window.game.sound.setMute(true);
-        console.log('✅ All scenes paused (from SDK)');
-        } else {
-        console.warn('⚠️ Game not ready for pause');
-        }
-    };
+    <script type="text/javascript">
+      window.SDK_OPTIONS = {
+        gameId: "zw7f2sx8rh3qy0xvduha9r5519273xlg",
+        onEvent: function (a) {
+          console.log("SDK event:", a.name);
 
-    window.SDK_GAME_START = function () {
-        if (window.game) {
-        const scenes = window.game.scene.getScenes(true);
-        scenes.forEach(s => window.game.scene.resume(s.scene.key));
-        window.game.sound.setMute(false);
-        console.log('✅ All scenes resumed (from SDK)');
-        } else {
-        console.warn('⚠️ Game not ready for resume');
-        }
-    };
-    </script>
+          switch (a.name) {
+            case "SDK_GAME_PAUSE":
+              console.log('SDK_GAME_PAUSE: pausing scenes and muting');
+              window.game.sound.setMute(true);
+              window.game.scene.pause('StartScene');
+              window.game.scene.pause('Scene1');
+              window.game.scene.pause('Scene2');
+              break;
 
+            case "SDK_GAME_START":
+              console.log('SDK_GAME_START: resuming scenes and unmuting');
+              window.game.sound.setMute(false);
+              window.game.scene.resume('StartScene');
+              window.game.scene.resume('Scene1');
+              window.game.scene.resume('Scene2');
+              break;
 
-  <script type="text/javascript">
-    window.SDK_OPTIONS = {
-      gameId: "zw7f2sx8rh3qy0xvduha9r5519273xlg",
-      onEvent: function(event) {
-        console.log("SDK event:", event.name);
-
-        if (event.name === "SDK_GAME_PAUSE" && window.SDK_GAME_PAUSE) {
-          window.SDK_GAME_PAUSE();
-        }
-
-        if (event.name === "SDK_GAME_START" && window.SDK_GAME_START) {
-          window.SDK_GAME_START();
-        }
-
-        if (event.name === "SDK_READY") {
-          // Optionally show banner ad right when SDK is ready
-          if (typeof sdk !== 'undefined' && typeof sdk.showBanner === 'function') {
-            sdk.showBanner();
-            console.log("Banner ad shown");
+            case "SDK_READY":
+              console.log('SDK is ready!');
+              if (typeof sdk !== 'undefined' && typeof sdk.showBanner === 'function') {
+                sdk.showBanner();
+              }
+              break;
           }
         }
-      }
-    };
+      };
 
-    (function(doc, tag, id) {
-      var firstScript = doc.getElementsByTagName(tag)[0];
-      if (!doc.getElementById(id)) {
-        var js = doc.createElement(tag);
-        js.id = id;
-        js.src = "https://api.gamemonetize.com/sdk.js";
-        firstScript.parentNode.insertBefore(js, firstScript);
-      }
-    })(document, "script", "gamemonetize-sdk");
-  </script>
-</head>
+      // Load SDK script
+      (function (a, b, c) {
+        var d = a.getElementsByTagName(b)[0];
+        if (!a.getElementById(c)) {
+          var s = a.createElement(b);
+          s.id = c;
+          s.src = "https://api.gamemonetize.com/sdk.js";
+          d.parentNode.insertBefore(s, d);
+        }
+      })(document, "script", "gamemonetize-sdk");
+    </script>
+  </head>
 
-<body>
-  <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
-  <script src="manager.js"></script>
-  <script src="StartScene.js"></script>
-  <script src="Scene1.js"></script>
-  <script src="Scene2.js"></script>
-  <script src="firstGame.js"></script>
-</body>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
+    <script src="manager.js"></script>
+    <script src="StartScene.js"></script>
+    <script src="Scene1.js"></script>
+    <script src="Scene2.js"></script>
+    <script src="firstGame.js"></script>
+  </body>
 </html>
