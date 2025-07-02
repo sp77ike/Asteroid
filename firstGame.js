@@ -13,7 +13,6 @@ const config = {
      },
 
      scene: [
-          manager,
           StartScene,
           Scene1,
           Scene2,
@@ -21,9 +20,3 @@ const config = {
 }
 
 var game = new Phaser.Game(config);
-
-window.game = game;
-
-
-//window.SDK_OPTIONS?.onEvent({ name: 'SDK_GAME_PAUSE' });
-//game.scene.launch('manager');
