@@ -24,23 +24,6 @@ var game = new Phaser.Game(config);
 
 window.game = game;
 
-window.SDK_GAME_PAUSE = () => {
-  console.log('SDK_GAME_PAUSE fired!');
-  window.game.sound.setMute(true);
-  window.game.scene.pause('StartScene');
-  window.game.scene.pause('Scene1');
-  window.game.scene.pause('Scene2');
-  // Also mute audio if you want
-};
-
-window.SDK_GAME_START = () => {
-  console.log('SDK_GAME_START fired!');
-  window.game.sound.setMute(false);
-  window.game.scene.resume('StartScene');
-  window.game.scene.resume('Scene1');
-  window.game.scene.resume('Scene2');
-  // Unmute audio here too
-};
 
 //window.SDK_OPTIONS?.onEvent({ name: 'SDK_GAME_PAUSE' });
 //game.scene.launch('manager');

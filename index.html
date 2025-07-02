@@ -4,11 +4,27 @@
   <title>First Game</title>
 
     <script>
-    window.SDK_GAME_PAUSE = window.SDK_GAME_PAUSE || function() {
-        console.log('SDK_GAME_PAUSE stub - game not ready yet');
+    // Fallback global handlers (defined early so GameMonetize finds them)
+    window.SDK_GAME_PAUSE = function () {
+        if (window.game) {
+        const scenes = window.game.scene.getScenes(true);
+        scenes.forEach(s => window.game.scene.pause(s.scene.key));
+        window.game.sound.setMute(true);
+        console.log('✅ All scenes paused (from SDK)');
+        } else {
+        console.warn('⚠️ Game not ready for pause');
+        }
     };
-    window.SDK_GAME_START = window.SDK_GAME_START || function() {
-        console.log('SDK_GAME_START stub - game not ready yet');
+
+    window.SDK_GAME_START = function () {
+        if (window.game) {
+        const scenes = window.game.scene.getScenes(true);
+        scenes.forEach(s => window.game.scene.resume(s.scene.key));
+        window.game.sound.setMute(false);
+        console.log('✅ All scenes resumed (from SDK)');
+        } else {
+        console.warn('⚠️ Game not ready for resume');
+        }
     };
     </script>
 
